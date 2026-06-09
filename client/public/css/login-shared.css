@@ -1,0 +1,299 @@
+/* Base Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    /* Keep strict for sign-in pages unless content overflows */
+    position: relative;
+    /* For absolute positioning of children if needed */
+}
+
+/* Single Parent Container for Background and Content */
+.login-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    /* Take remaining space */
+    display: flex;
+    /* Flexbox for perfect centering */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Global App Wrapper - Single Source of Truth for Background */
+.global-app-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../images/bg-campus-twilight.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* Apply styles directly to the parent container */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Gradient Overlay using Pseudo-element */
+.global-app-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Dark Gradient Overlay - Premium Deep Navy/Charcoal */
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.85) 0%, rgba(10, 25, 41, 0.75) 100%);
+    /* Subtle blur for depth */
+    backdrop-filter: blur(3px) brightness(0.8);
+    -webkit-backdrop-filter: blur(3px) brightness(0.8);
+    z-index: 0;
+    /* Behind content but above background-image */
+    pointer-events: none;
+}
+
+/* Ensure content sits above overlay */
+/* Ensure content sits above overlay and is interactable */
+.global-app-wrapper>* {
+    position: relative;
+    z-index: 1;
+}
+
+.login-wrapper,
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    /* Explicitly higher than overlay */
+}
+
+/* Force interactivity on card */
+.login-card {
+    pointer-events: auto;
+}
+
+/* Login Card */
+.login-card {
+    background: rgba(30, 41, 59, 0.65);
+    /* Dark semi-transparent */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 400px;
+    /* Slightly tighter width */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Ensure card doesn't touch edges on small screens */
+    margin: 20px;
+    position: relative;
+    /* Z-index context */
+    z-index: 5;
+}
+
+/* Footer - Fixed at bottom center */
+footer {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+    pointer-events: none;
+    /* Let clicks pass through */
+    z-index: 10;
+}
+
+/* Back Link / Change Portal Button */
+.change-portal-btn {
+    position: fixed;
+    /* Fixed to viewport */
+    top: 30px;
+    left: 30px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 20;
+
+    /* Glassmorphism Pill Style */
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px 20px 10px 12px;
+    border-radius: 99px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.icon-circle {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.change-portal-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.change-portal-btn:hover .icon-circle {
+    transform: translateX(-4px);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ... Animation ... */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .change-portal-btn {
+        top: 20px;
+        left: 20px;
+        padding: 8px 16px 8px 10px;
+    }
+
+    .login-card {
+        padding: 2rem;
+        max-width: 90%;
+    }
+}
+
+/* --- Input Styles (Keeping existing valid styles) --- */
+.card-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.card-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.input-container input {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 14px 14px 14px 46px;
+    color: white;
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    stroke: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 2;
+}
+
+.input-container input:focus {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.signin-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.signin-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    transition: 0.3s;
+}
+
+.forgot-password:hover {
+    color: rgba(56, 189, 248, 0.9);
+}

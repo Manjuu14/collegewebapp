@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════
+   CoordinatorDashboard.css  –  Collexa Coordinator Panel
+══════════════════════════════════════════════════════ */
+
+/* Variables shared with admin */
+.coord-root {
+    --blue: #4f46e5;
+    --blue-lt: #ede9fe;
+    --green: #059669;
+    --green-lt: #d1fae5;
+    --amber: #d97706;
+    --amber-lt: #fef3c7;
+    --red: #dc2626;
+    --red-lt: #fee2e2;
+    --bg: #f0f2f7;
+    --surface: #ffffff;
+    --border: #e5e9f2;
+    --text-1: #111827;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 4px rgba(0, 0, 0, .06);
+    --shadow: 0 4px 18px rgba(0, 0, 0, .08);
+    --t: 0.2s ease;
+    min-height: 100vh;
+    background: var(--bg);
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    color: var(--text-1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ── */
+.coord-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.coord-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.coord-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.coord-welcome {
+    font-size: 0.85rem;
+    color: var(--text-2);
+}
+
+.coord-logout-btn {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-2);
+    transition: all var(--t);
+}
+
+.coord-logout-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: var(--red-lt);
+}
+
+/* ── Main ── */
+.coord-main {
+    flex: 1;
+    padding: 32px;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.coord-page-title h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.coord-page-title p {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    margin-top: 3px;
+}
+
+/* ── Two-column grid ── */
+.coord-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* ── Card ── */
+.coord-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.coord-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.coord-card-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* ── Form ── */
+.coord-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.coord-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.coord-field label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.coord-field input,
+.coord-field textarea {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    color: var(--text-1);
+    background: var(--bg);
+    transition: border-color var(--t), box-shadow var(--t);
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.coord-field input:focus,
+.coord-field textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .12);
+    background: #fff;
+}
+
+.coord-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.coord-hint {
+    font-size: 0.78rem;
+    color: var(--text-3);
+    background: var(--blue-lt);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+}
+
+.coord-btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background var(--t), transform var(--t), box-shadow var(--t);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, .25);
+    align-self: flex-start;
+}
+
+.coord-btn-primary:hover:not(:disabled) {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(79, 70, 229, .3);
+}
+
+.coord-btn-primary:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ── List ── */
+.coord-list {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.coord-list-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-3);
+    margin-bottom: 4px;
+}
+
+.coord-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    transition: background var(--t);
+}
+
+.coord-list-item:hover {
+    background: #e8eaf0;
+}
+
+.coord-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.coord-item-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.coord-item-meta {
+    font-size: 0.75rem;
+    color: var(--text-2);
+}
+
+.coord-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.badge-green {
+    background: var(--green-lt);
+    color: var(--green);
+}
+
+.badge-amber {
+    background: var(--amber-lt);
+    color: var(--amber);
+}
+
+.badge-blue {
+    background: var(--blue-lt);
+    color: var(--blue);
+}
+
+/* ── Toast ── */
+.coord-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    padding: 14px 22px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+    animation: slideUp 0.3s ease;
+}
+
+.coord-toast-success {
+    background: var(--green);
+    color: #fff;
+}
+
+.coord-toast-error {
+    background: var(--red);
+    color: #fff;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .coord-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coord-main {
+        padding: 20px 16px;
+    }
+
+    .coord-header {
+        padding: 12px 16px;
+    }
+
+    .coord-welcome {
+        display: none;
+    }
+
+    .coord-field-row {
+        grid-template-columns: 1fr;
+    }
+}

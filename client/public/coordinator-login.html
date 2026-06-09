@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinator Login - Collexa Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login-shared.css">
+</head>
+
+<body>
+    <!-- Global Wrapper -->
+    <div class="global-app-wrapper">
+        <div class="login-wrapper">
+            <div class="login-container">
+                <a href="landing.html" class="change-portal-btn" title="Switch access type">
+                    <div class="icon-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                    </div>
+                    <span>Change Portal</span>
+                </a>
+
+                <div class="login-card">
+                    <header class="card-header">
+                        <h1>Club Coordinator</h1>
+                        <p>Manage Clubs & Events</p>
+                    </header>
+
+                    <form id="loginForm" autocomplete="off">
+                        <div class="input-group">
+                            <label for="email">COORDINATOR EMAIL</label>
+                            <div class="input-container">
+                                <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 16v-4"></path>
+                                    <path d="M12 8h.01"></path>
+                                </svg>
+                                <input type="email" id="email" placeholder="Enter your email" required
+                                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="password">PASSWORD</label>
+                            <div class="input-container">
+                                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <input type="password" id="password" placeholder="Enter your password" required
+                                    autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="signin-btn">Coordinator Access</button>
+                        <a href="#" class="forgot-password">Forgot your password?</a>
+                    </form>
+                </div>
+
+                <footer>
+                    &copy; 2026 Collexa – College Portal
+                </footer>
+            </div>
+        </div> <!-- End login-wrapper -->
+    </div> <!-- End global-app-wrapper -->
+
+    <script src="js/coordinator-login.js"></script>
+</body>
+
+</html>

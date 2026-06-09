@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collexa - Student Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/student-dashboard.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="brand-name">Collexa</span>
+        </div>
+
+        <div class="nav-center">
+            <div class="nav-pills">
+                <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+                <button class="nav-tab" data-tab="events">Events</button>
+                <button class="nav-tab" data-tab="clubs">Clubs</button>
+                <button class="nav-tab" data-tab="news">News</button>
+                <button class="nav-tab" data-tab="account">Account</button>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <button id="btnRefreshStudent" class="btn-refresh">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                Refresh
+            </button>
+            <div class="user-profile-modern">
+                <div class="user-info-text">
+                    <span class="u-name" id="headerUserName">Student</span>
+                    <button id="logoutBtn" class="logout-link-modern">Logout</button>
+                </div>
+                <div class="avatar-circle-modern">
+                    <span id="userInitials">S</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- SECTION: DASHBOARD -->
+        <section id="dashboard" class="tab-content active">
+
+            <!-- Hero & Quick Actions Grid -->
+            <div class="dashboard-hero-grid">
+
+                <!-- Left: Featured Event (Hero) -->
+                <div class="hero-card" id="upcomingEventHero">
+                    <div class="hero-image" style="background-image: url('images/bg-campus-twilight.png');">
+                        <div class="hero-overlay">
+                            <span class="badg-hero">COMING UP</span>
+                            <h2 class="hero-title">Annual Hackathon</h2>
+                        </div>
+                    </div>
+                    <div class="hero-details">
+                        <div class="detail-item">
+                            <div class="icon-circle-soft is-blue">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div class="detail-text">
+                                <span class="label">TIME</span>
+                                <span class="value">09:00 AM</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon-circle-soft is-pink">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="detail-text">
+                                <span class="label">LOCATION</span>
+                                <span class="value">Campus Auditorium</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-hero-action"
+                        onclick="document.querySelector('[data-tab=\'events\']').click()">View Details</button>
+                </div>
+
+                <!-- Right: Quick Actions -->
+                <div class="quick-actions-column">
+                    <!-- Find Events -->
+                    <div class="action-card is-blue-bg"
+                        onclick="document.querySelector('[data-tab=\'events\']').click()">
+                        <div class="action-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h3>Find Events</h3>
+                            <p>Discover workshops, seminars, and fun activities happening on campus.</p>
+                        </div>
+                    </div>
+
+                    <!-- Join Clubs -->
+                    <div class="action-card is-pink-bg"
+                        onclick="document.querySelector('[data-tab=\'clubs\']').click()">
+                        <div class="action-icon-circle is-pink">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h3>Join Clubs</h3>
+                            <p>Connect with like-minded students and build your network.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campus News Section -->
+            <div class="dashboard-section">
+                <div class="section-top-bar">
+                    <div class="title-with-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+                            <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0">
+                            </path>
+                        </svg>
+                        <h2>Campus News</h2>
+                    </div>
+                    <a href="#" class="view-all-link"
+                        onclick="document.querySelector('[data-tab=\'news\']').click()">View All →</a>
+                </div>
+
+                <div class="news-grid-modern" id="newsGrid">
+                    <!-- JS should populate this, or we put static fallbacks if empty -->
+                    <div class="loading-placeholder">
+                        <div class="shimmer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECONDARY ANNOUNCEMENTS SECTION (NEW) -->
+            <div class="dashboard-section" style="margin-top: 40px;">
+                <div class="section-header-simple">
+                    <h2>More Announcements</h2>
+                    <span class="subtitle">Latest official updates</span>
+                </div>
+
+                <div class="announcement-grid" id="moreAnnouncementsGrid">
+                    <!-- JS will populate PRO cards here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: NEWS (New Tab for logical separation) -->
+        <section id="news" class="tab-content">
+            <div class="events-header-modern">
+                <div class="header-titles">
+                    <h2>Campus News</h2>
+                    <p class="subtitle">Stay informed with the latest updates and announcements.</p>
+                </div>
+                <!-- Optional: Add a filter or action button here if needed -->
+            </div>
+            <div id="fullNewsGrid" class="news-list-container">
+                <!-- Full news list populated by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION: EVENTS -->
+        <section id="events" class="tab-content">
+            <div class="events-header-modern">
+                <div class="header-titles">
+                    <h2>Discover Events</h2>
+                    <p class="subtitle">Explore what's happening around campus.</p>
+                </div>
+                <div class="events-search-wrapper" id="eventSearchWrapper">
+                    <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="eventSearchInput" placeholder="Search events..." class="search-input" autocomplete="off">
+                    <button class="search-clear-btn" id="eventSearchClear" aria-label="Clear search" style="display:none">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="events-list" id="eventsList">
+                <div class="loading-state">Loading events...</div>
+            </div>
+        </section>
+
+        <!-- SECTION: CLUBS -->
+        <section id="clubs" class="tab-content">
+            <div class="events-header-modern">
+                <div class="header-titles">
+                    <h2>Campus Clubs</h2>
+                    <p class="subtitle">Find your community and grow your skills.</p>
+                </div>
+                <div class="events-search-wrapper" id="clubSearchWrapper">
+                    <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="clubSearchInput" placeholder="Search clubs..." class="search-input search-input-clubs" autocomplete="off">
+                    <button class="search-clear-btn" id="clubSearchClear" aria-label="Clear search" style="display:none">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="clubs-grid" id="clubsGrid">
+                <div class="loading-state">Loading clubs...</div>
+            </div>
+        </section>
+
+        <!-- SECTION: ACCOUNT -->
+        <section id="account" class="tab-content">
+            <div class="settings-centering-container">
+                <div class="section-header">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <h2>My Data</h2>
+                </div>
+
+                <div class="profile-card detailed-profile">
+                    <!-- Profile Picture Upload -->
+                    <div class="profile-upload-section">
+                        <div class="profile-img-container">
+                            <img id="profilePreview" src="images/default-avatar.png" alt="Profile"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Student&background=random'">
+                            <label for="profileUpload" class="upload-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2-2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                            </label>
+                            <input type="file" id="profileUpload" accept="image/*" hidden>
+                        </div>
+                        <p class="upload-hint">Click to upload picture</p>
+                    </div>
+
+                    <form id="profileForm" class="profile-grid">
+                        <!-- Name & Register No -->
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            <input type="text" id="studentName" placeholder="Details" required>
+                            <span class="error-msg">Alphabets and spaces only</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Register Number (e.g. 23A12345)</label>
+                            <input type="text" id="regNumber" placeholder="23A12345" maxlength="8" pattern="^23[A-C]\d{5}$" title="Must start with 23, followed by A, B, or C, and exactly 5 digits" required>
+                            <span class="error-msg">Format: 2 Digits, 1 Upper Char, 5 Digits</span>
+                        </div>
+
+                        <!-- Academic Details -->
+                        <div class="form-group">
+                            <label>Semester</label>
+                            <div class="select-wrapper">
+                                <select id="semester" required>
+                                    <option value="" disabled selected>Select Sem</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Section</label>
+                            <div class="select-wrapper">
+                                <select id="section" required>
+                                    <option value="" disabled selected>Select Section</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width-mobile">
+                            <label>Course</label>
+                            <div class="select-wrapper">
+                                <select id="course" required>
+                                    <option value="" disabled selected>Select Course</option>
+                                    <option value="BCOM">BCOM</option>
+                                    <option value="BBA">BBA</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="MBA">MBA</option>
+                                    <option value="MCA">MCA</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Auth Details -->
+                        <div class="form-group full-width">
+                            <label>Email Address</label>
+                            <input type="email" id="profileEmail" required>
+                            <span class="error-msg">Invalid email format</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Password</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="profilePassword" placeholder="Update password ">
+                                <button type="button" class="toggle-password">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="hint-msg">Leave blank to keep current password</span>
+                        </div>
+
+                        <div class="form-actions full-width">
+                            <button type="submit" id="saveProfileBtn" class="save-btn" disabled>Save Changes</button>
+                            <span id="saveSuccessMsg" class="success-msg">Profile saved successfully! ✓</span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Dark Mode Theme Preference -->
+                <div class="settings-panel settings-panel-dm">
+                    <h3 class="settings-section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                        Theme Preference
+                    </h3>
+                    <p class="settings-section-desc">Choose how the dashboard looks to you.</p>
+                    <div class="theme-toggle-grid">
+                        <button type="button" class="theme-pill" data-mode="light">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <circle cx="12" cy="12" r="5" />
+                                <path
+                                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                            </svg>
+                            Light
+                        </button>
+                        <button type="button" class="theme-pill" data-mode="dark">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                            Dark
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Chat Button (from reference) -->
+    <button class="fab-chat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="js/student-dashboard.js"></script>
+</body>
+
+</html>
