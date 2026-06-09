@@ -49,13 +49,17 @@ app.use((err, req, res, next) => {
 
 // ── DB Connect & Seed ─────────────────────────────────────────────────────────
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
+const { startMongo } = require('./utils/mongoLoader');
 
-mongoose.connect(MONGO_URI)
+startMongo()
+    .then(() => {
+        return mongoose.connect(MONGO_URI);
+    })
     .then(async () => {
         console.log(`MongoDB Connected → ${MONGO_URI}`);
         await seedAll();
     })
-    .catch(err => console.error('MongoDB Connection Error:', err));
+    .catch(err => console.error('MongoDB Connection/Startup Error:', err.message));
 
 // ── Seed Function ─────────────────────────────────────────────────────────────
 // IMPORTANT: Always force-updates passwords so stale hashes never block login.
@@ -68,13 +72,13 @@ const seedAll = async () => {
             { name: 'Admin User', email: 'admin@gmail.com', password: '123', role: 'admin' },
             { name: 'Club Coordinator', email: 'club@gmail.com', password: '123', role: 'coordinator' },
             // Sample students
-            { name: 'Manjunath', email: 'manju@gmail.com', password: '123', role: 'student' },
-            { name: 'Rahul', email: 'rahul@gmail.com', password: '123', role: 'student' },
-            { name: 'Sneha', email: 'sneha@gmail.com', password: '123', role: 'student' },
-            { name: 'Priya', email: 'priya@gmail.com', password: '123', role: 'student' },
-            { name: 'Arjun', email: 'arjun@gmail.com', password: '123', role: 'student' },
-            { name: 'Kavya', email: 'kavya@gmail.com', password: '123', role: 'student' },
-            { name: 'Deep', email: 'deep@gmail.com', password: '123', role: 'student' },
+            { name: 'Manjunath', email: 'manju@gmail.com', password: '123', role: 'student', regNumber: '23C01102', semester: 'Sem 6', section: 'B', course: 'BCA' },
+            { name: 'Rahul', email: 'rahul@gmail.com', password: '123', role: 'student', regNumber: '23A01103', semester: 'Sem 6', section: 'A', course: 'BBA' },
+            { name: 'Sneha', email: 'sneha@gmail.com', password: '123', role: 'student', regNumber: '23B01104', semester: 'Sem 6', section: 'C', course: 'BCOM' },
+            { name: 'Priya', email: 'priya@gmail.com', password: '123', role: 'student', regNumber: '23A01105', semester: 'Sem 6', section: 'B', course: 'BBA' },
+            { name: 'Arjun', email: 'arjun@gmail.com', password: '123', role: 'student', regNumber: '23C01106', semester: 'Sem 6', section: 'A', course: 'BCA' },
+            { name: 'Kavya', email: 'kavya@gmail.com', password: '123', role: 'student', regNumber: '23C01107', semester: 'Sem 6', section: 'B', course: 'BCA' },
+            { name: 'Deep', email: 'deep@gmail.com', password: '123', role: 'student', regNumber: '23C01108', semester: 'Sem 6', section: 'C', course: 'BCA' },
         ];
 
         for (const u of userSeeds) {
@@ -84,9 +88,16 @@ const seedAll = async () => {
                 console.log(`✓ Created user: ${u.email}`);
             } else {
                 const fresh = await bcrypt.hash(u.password, 10);
-                // Only update the password to ensure login works; DO NOT touch the name or other profile info
-                await User.updateOne({ email: u.email }, { $set: { password: fresh } });
-                console.log(`↻ Synchronized credentials for: ${u.email}`);
+                // Update password AND student profile details during sync
+                const updateFields = { password: fresh };
+                if (u.role === 'student') {
+                    if (u.regNumber) updateFields.regNumber = u.regNumber;
+                    if (u.semester) updateFields.semester = u.semester;
+                    if (u.section) updateFields.section = u.section;
+                    if (u.course) updateFields.course = u.course;
+                }
+                await User.updateOne({ email: u.email }, { $set: updateFields });
+                console.log(`↻ Synchronized credentials and profile for: ${u.email}`);
             }
         }
 
@@ -116,11 +127,16 @@ const seedAll = async () => {
             ];
             for (const c of clubSeeds) {
                 const members = studentIds.slice(0, Math.min(c.n, studentIds.length));
-                await Club.create({ name: c.name, description: c.description, coordinator: coordinator._id, members });
+                await Club.create({ name: c.name, description: c.description, coordinator: coordinator._id, members, status: 'approved' });
                 console.log(`✓ Seeded club: ${c.name} (${members.length} members)`);
             }
         } else {
-            console.log('Skipping Club seeding (collection not empty)');
+            // Force-approve the seeded clubs to make sure they are active by default
+            await Club.updateMany(
+                { name: { $in: ['Tech Innovators', 'Debate Society', 'Fitness Club', 'Music Club', 'Web Dev Club', 'Dance Club'] }, status: 'pending' },
+                { $set: { status: 'approved' } }
+            );
+            console.log('Synchronized seeded club statuses to approved.');
         }
 
         // ── 3. Events — only seed if collection is empty ───────────────────

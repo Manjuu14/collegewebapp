@@ -5,7 +5,7 @@
  */
 
 export const EVENT_IMAGES = {
-    'annual hackathon': 'https://images.unsplash.com/photo-1504384308090-c54be385363d?q=80&w=900&auto=format&fit=crop',
+    'annual hackathon': 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=900&auto=format&fit=crop',
     'graduation party': 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=900&auto=format&fit=crop',
     'gaming tournament': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=900&auto=format&fit=crop',
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { CLUB_IMAGES } from '../utils/clubImages';
+import { EVENT_IMAGES } from '../utils/eventImages';
 
 // ─── Icons (Minimal SVG Set) ──────────────────────────────────────────────────
 const Ico = {
@@ -364,7 +366,10 @@ const CoordinatorDashboard = () => {
                 <div className="card-grid">
                     {unifiedHubItems.map((item, i) => {
                         const isEvent = item.hubType === 'event';
-                        const imgUrl = getImageUrl(item.image);
+                        const fallbackImg = isEvent 
+                            ? EVENT_IMAGES[(item.title || '').toLowerCase()] 
+                            : CLUB_IMAGES[(item.name || '').toLowerCase()];
+                        const imgUrl = getImageUrl(item.image) || fallbackImg;
                         return (
                             <div key={item._id} className="pro-card">
                                 <div className="pro-card-img">
@@ -486,7 +491,8 @@ const CoordinatorDashboard = () => {
                     </div>
                     <div className="card-grid">
                         {myEvents.map((ev, i) => {
-                            const imgUrl = getImageUrl(ev.image);
+                            const fallbackImg = EVENT_IMAGES[(ev.title || '').toLowerCase()];
+                            const imgUrl = getImageUrl(ev.image) || fallbackImg;
                             return (
                                 <div key={ev._id} className="pro-card">
                                     <div className="pro-card-img">
@@ -585,7 +591,8 @@ const CoordinatorDashboard = () => {
                     </div>
                     <div className="card-grid">
                         {myClubs.map((c, i) => {
-                            const imgUrl = getImageUrl(c.image);
+                            const fallbackImg = CLUB_IMAGES[(c.name || '').toLowerCase()];
+                            const imgUrl = getImageUrl(c.image) || fallbackImg;
                             return (
                                 <div key={c._id} className="pro-card">
                                     <div className="pro-card-img">
